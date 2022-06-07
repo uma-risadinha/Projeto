@@ -375,9 +375,57 @@ select * from dual;
 
 
 
-
+/*3*/
+/*a Uma consulta usando junção de mais de 2 tabelas*/
 select  z.nome, c.numero, c.bloco, c.andar from
 tbpessoa z inner join tbpessoa_has_unidade b on
 z.idpessoa = b.idtbpessoa inner join tbunidade c on
 c.idunidade = b.idtbunidade;
+/*b Uma consulta que seja útil para a lógica de negócios usando totalização e
+uma função de data*/
 
+
+/*c. Uma consulta usando junção externa left join ou right join*/
+/*Selecionar todos as pessoas para saber quais tem alguma relação com alguma unidade*/
+select  z.nome, b.idtbunidade from
+tbpessoa z left outer join tbpessoa_has_unidade b on
+z.idpessoa = b.idtbpessoa;
+ 
+/*d. Uma consulta usando o operador de União.*/
+
+/*e. Uma consulta usando o operador Minus*/
+/*selecione apenas os apartamentos sem morador, visitante, ou funcionario*/
+select idunidade from tbunidade
+minus 
+select idtbunidade from tbpessoa_has_unidade
+
+/*f. Uma consulta usando o operador de intersecção*/
+
+
+/*4.*/
+/*a. exemplo de um comando utilizando subconsultas que utilize o operador in.*/
+
+
+/*b. exemplo de um comando utilizando subconsultas que utilize o operador not exists*/
+
+
+/*c. exemplo de uma subconsulta utilizada dentro de um comando Update.*/
+
+
+/*d. exemplo de uma subconsulta utilizada dentro de um comando Delete.*/
+
+/*******************Parte PL/SQL***********************************************/
+/*a. Escreva uma Stored Procedure que realize algum procedimento que seja útil
+implementar reuso para a aplicação e indique uma forma de testá-la. */
+
+/*b. Escreva uma função que retorna alguma informação útil para a aplicação e
+indique uma forma de testá-la. */
+
+
+/*c. Escreva um trigger de auditoria para criação e uso de logs sempre que
+alguma operação crítica for realizada. Deverá usar :NEW e :OLD.*/
+
+
+
+/*d. Escreva um trigger para impor uma integridade de dados mais complexa do
+que uma restrição Check(por exemplo).*/
