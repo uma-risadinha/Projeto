@@ -71,9 +71,9 @@ ALTER TABLE TBPESSOA
 ADD CONSTRAINT CK_PESSOA_LIBERACAO
 CHECK (LIBERACAO IN ('S', 'N'));  
 
-alter table tbpessoa
+/*alter table tbpessoa
 add constraint ck_pessoa_liberacao
-Check (liberacao in ('1', '0'));
+Check (liberacao in ('1', '0'));*/
 
 /****************************************************************/
 
