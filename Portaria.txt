@@ -478,7 +478,7 @@ WHERE  idpessoa in (select idpessoa from tbacesso where idacesso = 8);
 
 
 /*d. exemplo de uma subconsulta utilizada dentro de um comando Delete.*/
-/*deletando unidades que nao tem moradores*/
+/*deletando unidades que nao tem moradores deixado dentro de parenteses para teste manual*/
 /*
 delete from tbunidade where idunidade not in (select idtbunidade from tbpessoa_has_unidade);
 */
@@ -498,3 +498,5 @@ alguma operação crítica for realizada. Deverá usar :NEW e :OLD.*/
 
 /*d. Escreva um trigger para impor uma integridade de dados mais complexa do
 que uma restrição Check(por exemplo).*/
+/*Uma trigger para controle de data de entrada e saida de moradores no condominio*/
+
