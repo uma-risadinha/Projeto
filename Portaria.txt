@@ -1,502 +1,541 @@
-/***********TESTADO NO LIVESQL*******************/ 
- create table tbUnidade( 
-    idunidade number(3), 
-    numero varchar2(20), 
-    bloco varchar2(20), 
-    andar number(3.0), 
-    quadra varchar2(20), 
-    rua varchar2(20), 
-    observacao varchar2(20) 
- );
- CREATE TABLE tbcategoria( 
-    idcategoria number(3), 
-    nome varchar2(20) 
- );
- create table tbpessoa( 
-    idpessoa number(3),  
-    cpf varchar2(16), 
-    nome varchar2(40), 
-    categoria number (3.0), 
-    telefone varchar2(14), 
-    email varchar2(34), 
-    liberacao char(1), 
-    observacao varchar(100) 
- );
-create table tbpessoa_has_unidade( 
-    idtbpessoa number(3), 
-    idtbunidade number(3.0) 
-);
-create table tbacesso( 
-    idacesso number(3), 
-    idpessoa number(3), 
-    idunidade number(3.0), 
-    datahorachegada date, 
-    datahorasaida date 
- );
-
-ALTER TABLE tbunidade 
-ADD CONSTRAINT pk_unidade PRIMARY KEY (idunidade);
-
-ALTER TABLE tbcategoria 
-ADD CONSTRAINT pk_categoria PRIMARY KEY (idcategoria);
-
-ALTER TABLE tbpessoa 
-ADD CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa);
-
-ALTER TABLE tbpessoa_has_unidade 
-ADD CONSTRAINT pk_pessoa_unidade PRIMARY KEY (idtbpessoa, idtbunidade);
-
-ALTER TABLE tbpessoa_has_unidade 
-ADD CONSTRAINT fk_pu_pessoa 
-   FOREIGN KEY (idtbpessoa) 
-   REFERENCES tbpessoa(idpessoa);
-
-ALTER TABLE tbpessoa_has_unidade 
-ADD CONSTRAINT fk_pu_pessoa_unidade 
-   FOREIGN KEY (idtbunidade) 
-   REFERENCES tbunidade (idunidade);
-
-  ALTER TABLE tbpessoa 
-ADD CONSTRAINT fk_categoria 
-   FOREIGN KEY (categoria) 
-   REFERENCES tbcategoria (idcategoria);
-
-ALTER TABLE tbacesso 
-ADD CONSTRAINT fk_acesso_pessoa_unidade
-  FOREIGN KEY (idpessoa, idunidade) 
-  REFERENCES tbpessoa_has_unidade(idtbpessoa, idtbunidade);
-  
-ALTER TABLE TBPESSOA
-ADD CONSTRAINT CK_PESSOA_LIBERACAO
-CHECK (LIBERACAO IN ('S', 'N'));  
-
-/*alter table tbpessoa
-add constraint ck_pessoa_liberacao
-Check (liberacao in ('1', '0'));*/
-
-/****************************************************************/
-
-
-INSERT INTO TBCATEGORIA
-VALUES(1, 'MORADOR');
-
-INSERT INTO TBCATEGORIA
-VALUES(2, 'VISITANTE');
-
-INSERT INTO TBCATEGORIA
-VALUES(3, 'FUNCIONARIO');
-
-
-INSERT ALL
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(1, '1', 'GRYFFINDOR', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(2, '1', 'GRYFFINDOR', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(3, '1', 'GRYFFINDOR', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(4, '1', 'GRYFFINDOR', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(5, '1', 'GRYFFINDOR', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(6, '1', 'GRYFFINDOR', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(7, '1', 'GRYFFINDOR', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(8, '1', 'GRYFFINDOR', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(9, '1', 'GRYFFINDOR', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(10, '1', 'GRYFFINDOR', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE')
-
-SELECT * FROM DUAL;
-
-INSERT ALL
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(11, '2', 'Slytherin', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(12, '2', 'Slytherin', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(13, '2', 'Slytherin', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(14, '2', 'Slytherin', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(15, '2', 'Slytherin', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(16, '2', 'Slytherin', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(17, '2', 'Slytherin', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(18, '2', 'Slytherin', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(19, '2', 'Slytherin', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(20, '2', 'Slytherin', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2')
-
-SELECT * FROM DUAL;
-
-INSERT ALL
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(21, '3', 'Ravenclaw', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(22, '3', 'Ravenclaw', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(23, '3', 'Ravenclaw', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(24, '3', 'Ravenclaw', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(25, '3', 'Ravenclaw', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(26, '3', 'Ravenclaw', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(27, '3', 'Ravenclaw', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(28, '3', 'Ravenclaw', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(29, '3', 'Ravenclaw', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(30, '3', 'Ravenclaw', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3')
-
-SELECT * FROM DUAL;
-
-INSERT ALL 
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(31, '4', 'Hufflepuff', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(32, '4', 'Hufflepuff', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(33, '4', 'Hufflepuff', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(34, '4', 'Hufflepuff', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(35, '4', 'Hufflepuff', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(36, '4', 'Hufflepuff', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(37, '4', 'Hufflepuff', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(38, '4', 'Hufflepuff', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(39, '4', 'Hufflepuff', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO)
-VALUES(40, '4', 'Hufflepuff', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4')
-
-SELECT * FROM DUAL;
-
-
-INSERT ALL 
-    INTO TBPESSOA
-    VALUES(1, '924.530.162-10', 'JACCAN',1, '(98) 2815-4286','cozinheiro@hotmail.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(2, '787.084.794-10', 'JOSUE',1,'(99) 2724-2687', 'escritor@gmail.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(3, '689.672.301-76', 'JOAO',1,'(15) 3554-3232', 'contabilista@gmail.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(4, '854.209.143-44', 'JOANA',1,'(99) 3735-0737', 'insetologista@bol.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(5, '353.505.564-44', 'HERMIONE',1,'(95) 3466-5681', 'magasuprema@outlook.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(6, '844.333.551-35', 'HARRY POTTER',1, '(69) 3728-6327', 'cacique@hogwarts.com.br', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(7, '835.629.641-29', 'JACIRA',1,'(95) 3056-7341','leitora@outlook.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(8, '538.881.347-90', 'GULIVER',1,'(95) 3782-5475','aventureiro@terradegigantes.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(9, '292.196.500-37', 'JUSSARA',1,'(81) 3617-0529','cantora@hotmail.com', 'S', ' ')
-    INTO TBPESSOA
-    VALUES(10, '767.498.328-57', 'JOSEFA', 1,'(15) 2706-4887', 'medica@cidade.tk', 'S', ' ')
-SELECT * FROM DUAL;
-
-INSERT ALL 
-    INTO TBPESSOA
-    VALUES(11, '601.895.546-65', 'Inbuk',2, '(82) 2601-9557','cozinheiro@hotmail.com', 'S', 'IRMÃ')
-    INTO TBPESSOA
-    VALUES(12, '821.758.075-84', 'Labiurion',2,'(61) 2032-3487', 'escritor@gmail.com', 'S', 'IRMÃO')
-    INTO TBPESSOA
-    VALUES(13, '988.312.667-05', 'Herandir',2,'(48) 3794-4894', 'contabilista@gmail.com', 'S', 'TIO')
-    INTO TBPESSOA
-    VALUES(14, '505.874.385-09', 'Yatmaxa',2,'(54) 3349-5556', 'insetologista@bol.com', 'S', 'SOBRINHO')
-    INTO TBPESSOA
-    VALUES(15, '336.608.027-27', 'Kreinxo',2,'(61) 3500-1370', 'magasuprema@outlook.com', 'S', 'AMIGA')
-    INTO TBPESSOA
-    VALUES(16, '146.218.437-53', 'Veharz',2, '(87) 2186-7354', 'cacique@hogwarts.com.br', 'S', 'NAMORADA')
-    INTO TBPESSOA
-    VALUES(17, '906.012.682-37', 'Kezeukul',2,'(51) 3583-5788','leitora@outlook.com', 'S', 'PRIMA')
-    INTO TBPESSOA
-    VALUES(18, '514.465.614-53', 'Mogis',2,'(63) 2987-7767','aventureiro@terradegigantes.com', 'S', 'PRIMO')
-    INTO TBPESSOA
-    VALUES(19, '782.786.852-58', 'Cuoxaigramph',2,'(85) 2907-1362','cantora@hotmail.com', 'S', 'ENTEADO')
-    INTO TBPESSOA
-    VALUES(20, '786.725.494-30', 'Bugdpo', 2,'(88) 2253-4865', 'medica@cidade.tk', 'S', 'TIA')
-    
-SELECT * FROM DUAL;
- 
-
-
-INSERT ALL 
-    INTO TBPESSOA
-    VALUES(21, '477.892.598-06', 'Zélia Grilo Loureiro Facre',3, '(27) 2712-6954','cozinheiro@hotmail.com', 'S', 'VETERINARIO')
-    INTO TBPESSOA
-    VALUES(22, '724.920.363-08', 'Gabriel Silveira Peçanha Barreto',3,'(95) 3153-6535', 'escritor@gmail.com', 'S', 'PEDREIRO')
-    INTO TBPESSOA
-    VALUES(23, '305.787.297-25', 'Edna Sodre Braga Bueno',3,'(32) 3317-3525', 'contabilista@gmail.com', 'S', 'INSTALADOR DE PLACA SOLAR')
-    INTO TBPESSOA
-    VALUES(24, '405.845.587-08', 'Gabrielle Augusto Navega Pinheiro',3,'(82) 2587-5271', 'insetologista@bol.com', 'S', 'REPARADOR')
-    INTO TBPESSOA
-    VALUES(25, '756.320.886-00', 'Rozangela de Souza Conceição Linhares',3,'(68) 3987-3418', 'magasuprema@outlook.com', 'S', 'ELETRICISTA')
-    INTO TBPESSOA
-    VALUES(26, '483.798.885-70', 'Carlos Henrique Vabo Leonicio Alfradique',3, '(61) 2574-4443', 'cacique@hogwarts.com.br', 'S', 'DIARISTA')
-    INTO TBPESSOA
-    VALUES(27, '869.159.262-16', 'Sergio Borges Santana Macário',3,'(61) 3748-2277','leitora@outlook.com', 'S', 'ONCOLOGISTA')
-    INTO TBPESSOA
-    VALUES(28, '822.351.158-45', 'Soraia Barbosa Vilela Vargas',3,'(77) 3516-2474','aventureiro@terradegigantes.com', 'S', 'PARTEIRO')
-    INTO TBPESSOA
-    VALUES(29, '244.436.575-50', 'Manuela Nogueira Pacheco Duarte',3,'(61) 3923-0479','cantora@hotmail.com', 'S', 'MEDICO')
-    INTO TBPESSOA
-    VALUES(30, '185.484.168-82', 'Jasmim Dutra Werneck Borralho', 3,'(69) 2159-0610', 'medica@cidade.tk', 'S', 'PROFESSOR')
-    
-    INTO TBPESSOA
-    VALUES(51, '886.725.494-30', 'Bugdp', 2,'(89) 9953-4865', 'autora@cidade.tk', 'N', 'Entrada negada por estar usando sapitlhas de cor purpura')
-
-SELECT * FROM DUAL;
- 
-
-INSERT ALL
-INTO tbPessoa_has_Unidade
-VALUES(1,1)
-
-INTO tbPessoa_has_Unidade
-VALUES(2,2)
-INTO tbPessoa_has_Unidade
-VALUES(3,3)
-INTO tbPessoa_has_Unidade
-VALUES(4,4)
-INTO tbPessoa_has_Unidade
-VALUES(5,5)
-INTO tbPessoa_has_Unidade
-VALUES(6,6)
-
-INTO tbPessoa_has_Unidade
-VALUES(7,7)
-
-INTO tbPessoa_has_Unidade
-VALUES(8,8)
-
-INTO tbPessoa_has_Unidade
-VALUES(9,9)
-
-INTO tbPessoa_has_Unidade
-VALUES(10,10)
-
-SELECT * FROM DUAL;
-
-
-insert all
-into tbacesso
-values(1,1,1,to_date('2005/01/01 00:00:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 00:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(2,1,1,to_date('2005/01/01 10:00:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-
-into tbacesso
-values(3,2,2,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-
-into tbacesso
-values(4,3,3,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-
-into tbacesso
-values(5,4,4,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-
-into tbacesso
-values(6,5,5,to_date('2005/01/01 10:03:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-
-into tbacesso
-values(7,3,3,to_date('2005/01/01 10:04:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(8,3,3,to_date('2005/01/01 10:04:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(9,7,7,to_date('2005/01/01 10:14:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(10,8,8,to_date('2005/01/01 10:22:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(11,9,9,to_date('2005/01/01 10:23:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(12,10,10,to_date('2005/01/01 10:24:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-into tbacesso
-values(13,4,4,to_date('2005/01/01 10:24:3', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss'))
-
-select * from dual;
-
-insert all
-into tbacesso
-values(14,1,1,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(15,1,1,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-
-into tbacesso
-values(16,2,2,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-
-into tbacesso
-values(17,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-
-into tbacesso
-values(18,4,4,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-
-into tbacesso
-values(19,5,5,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-
-into tbacesso
-values(20,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(21,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(22,7,7,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(23,8,8,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(24,9,9,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(25,10,10,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-into tbacesso
-values(26,10,10,to_char(sysdate-1/2),to_char(sysdate-13/24))
-
-select * from dual;
-
-
-/*3*/
-/*a Uma consulta usando junção de mais de 2 tabelas*/
-select  z.nome, c.numero, c.bloco, c.andar from
-tbpessoa z inner join tbpessoa_has_unidade b on
-z.idpessoa = b.idtbpessoa inner join tbunidade c on
-c.idunidade = b.idtbunidade;
-/*b Uma consulta que seja útil para a lógica de negócios usando totalização e
-uma função de data*/
-/*Obter o nome e a quantidade de entradas que determinada pessoa fez ao condominio dentro das ultimas 24 horas*/
-select  p.nome, count(a.idpessoa) as "Total de entradas"
-from
-tbpessoa p inner join tbacesso a on
-a.idpessoa = p.idpessoa
-where a.datahorachegada between to_date(sysdate- 1, 'dd/mm/yyyy hh:mi:ss')  and sysdate
-group by p.nome
-order by "Total de entradas";
-
-
-/*c. Uma consulta usando junção externa left join ou right join*/
-/*Selecionar todos as pessoas para saber quais tem alguma relação com alguma unidade*/
-select  z.nome, b.idtbunidade from
-tbpessoa z left outer join tbpessoa_has_unidade b on
-z.idpessoa = b.idtbpessoa;
- 
-/*d. Uma consulta usando o operador de União.*/
-
-/*e. Uma consulta usando o operador Minus*/
-/*selecione apenas os apartamentos que não contenham registro de pessoas*/
-select idunidade from tbunidade
-minus 
-select idtbunidade from tbpessoa_has_unidade;
-
-/*f. Uma consulta usando o operador de intersecção*/
-
-
-/*4.*/
-/*a. exemplo de um comando utilizando subconsultas que utilize o operador in.*/
-/*Selecionar as unidades que tiveram alguma visita*/ 
-select * from tbunidade 
-where idunidade in (select idunidade from tbacesso);
-
-
-/*b. exemplo de um comando utilizando subconsultas que utilize o operador not exists*/
-
-
-/*c. exemplo de uma subconsulta utilizada dentro de um comando Update.*/
-/*negando acesso de uma pessoa ao condominio*/
-UPDATE tbpessoa
-SET  observacao = 'Acesso negado para o condomínio, morador não pagou a anuidade da netflix', liberacao = 'N'
-WHERE  idpessoa in (select idpessoa from tbacesso where idacesso = 8);
-
-
-/*d. exemplo de uma subconsulta utilizada dentro de um comando Delete.*/
-/*deletando unidades que nao tem moradores deixado dentro de parenteses para teste manual*/
-/*
-delete from tbunidade where idunidade not in (select idtbunidade from tbpessoa_has_unidade);
+--Testado no live sql
+/*Integrantes: Gabriela Veríssimo
+               Gustavo Batista
+               Douglas Andrade
+               Gabriel Jesus Porfirio Marques
+               
+*/
+--1
+/**
+*Essa base de dados foi desenvolvida com o intuito de ser utilizada 
+*para controle de entrada e saídas de pessoas em um condominio
+*
 */
 
-/*******************Parte PL/SQL***********************************************/
-/*a. Escreva uma Stored Procedure que realize algum procedimento que seja útil
-implementar reuso para a aplicação e indique uma forma de testá-la. */
+--2
+--b
+ create table tbUnidade(  
+    idunidade number(3),  
+    numero varchar2(20),  
+    bloco varchar2(20),  
+    andar number(3.0),  
+    quadra varchar2(20),  
+    rua varchar2(20),  
+    observacao varchar2(20)  
+ );
 
-/*b. Escreva uma função que retorna alguma informação útil para a aplicação e
-indique uma forma de testá-la. */
+ CREATE TABLE tbcategoria(  
+    idcategoria number(3),  
+    nome varchar2(20)  
+ );
+
+ create table tbpessoa(  
+    idpessoa number(3),   
+    cpf varchar2(16),  
+    nome varchar2(40),  
+    categoria number (3.0),  
+    telefone varchar2(14),  
+    email varchar2(34),  
+    liberacao char(1),  
+    observacao varchar(100)  
+ );
+
+create table tbpessoa_has_unidade(  
+    idtbpessoa number(3),  
+    idtbunidade number(3.0)  
+);
+
+create table tbacesso(  
+    idacesso number(3),  
+    idpessoa number(3),  
+    idunidade number(3.0),  
+    datahorachegada date,  
+    datahorasaida date  
+ );
+
+--constraints apos a criação das tabelas
+ALTER TABLE tbunidade  
+ADD CONSTRAINT pk_unidade PRIMARY KEY (idunidade);
+
+ALTER TABLE tbcategoria  
+ADD CONSTRAINT pk_categoria PRIMARY KEY (idcategoria);
+
+ALTER TABLE tbpessoa  
+ADD CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa);
+
+ALTER TABLE tbpessoa_has_unidade  
+ADD CONSTRAINT pk_pessoa_unidade PRIMARY KEY (idtbpessoa, idtbunidade);
+
+ALTER TABLE tbpessoa_has_unidade  
+ADD CONSTRAINT fk_pu_pessoa  
+   FOREIGN KEY (idtbpessoa)  
+   REFERENCES tbpessoa(idpessoa);
+
+ALTER TABLE tbpessoa_has_unidade  
+ADD CONSTRAINT fk_pu_pessoa_unidade  
+   FOREIGN KEY (idtbunidade)  
+   REFERENCES tbunidade (idunidade);
+
+  ALTER TABLE tbpessoa  
+ADD CONSTRAINT fk_categoria  
+   FOREIGN KEY (categoria)  
+   REFERENCES tbcategoria (idcategoria);
+
+ALTER TABLE tbacesso  
+ADD CONSTRAINT fk_acesso_pessoa_unidade 
+  FOREIGN KEY (idpessoa, idunidade)  
+  REFERENCES tbpessoa_has_unidade(idtbpessoa, idtbunidade);
+
+ALTER TABLE TBPESSOA 
+ADD CONSTRAINT CK_PESSOA_LIBERACAO 
+CHECK (LIBERACAO IN ('S', 'N'));
 
 
-/*c. Escreva um trigger de auditoria para criação e uso de logs sempre que
-alguma operação crítica for realizada. Deverá usar :NEW e :OLD.*/
+--c inserindo dados
+INSERT INTO TBCATEGORIA 
+VALUES(1, 'MORADOR');
 
+INSERT INTO TBCATEGORIA 
+VALUES(2, 'VISITANTE');
 
+INSERT INTO TBCATEGORIA 
+VALUES(3, 'FUNCIONARIO');
 
-/*d. Escreva um trigger para impor uma integridade de dados mais complexa do
-que uma restrição Check(por exemplo).*/
-/*Uma trigger para controle de data de entrada e saida de moradores no condominio*/
+INSERT ALL 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(1, '1', 'GRYFFINDOR', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(2, '1', 'GRYFFINDOR', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(3, '1', 'GRYFFINDOR', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(4, '1', 'GRYFFINDOR', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(5, '1', 'GRYFFINDOR', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(6, '1', 'GRYFFINDOR', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(7, '1', 'GRYFFINDOR', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(8, '1', 'GRYFFINDOR', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(9, '1', 'GRYFFINDOR', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(10, '1', 'GRYFFINDOR', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
+ 
+SELECT * FROM DUAL;
+
+INSERT ALL 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(11, '2', 'Slytherin', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(12, '2', 'Slytherin', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(13, '2', 'Slytherin', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(14, '2', 'Slytherin', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(15, '2', 'Slytherin', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(16, '2', 'Slytherin', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(17, '2', 'Slytherin', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(18, '2', 'Slytherin', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(19, '2', 'Slytherin', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(20, '2', 'Slytherin', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
+ 
+SELECT * FROM DUAL;
+
+INSERT ALL 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(21, '3', 'Ravenclaw', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(22, '3', 'Ravenclaw', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(23, '3', 'Ravenclaw', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(24, '3', 'Ravenclaw', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(25, '3', 'Ravenclaw', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(26, '3', 'Ravenclaw', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(27, '3', 'Ravenclaw', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(28, '3', 'Ravenclaw', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(29, '3', 'Ravenclaw', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(30, '3', 'Ravenclaw', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
+ 
+SELECT * FROM DUAL;
+
+INSERT ALL  
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(31, '4', 'Hufflepuff', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(32, '4', 'Hufflepuff', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(33, '4', 'Hufflepuff', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(34, '4', 'Hufflepuff', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(35, '4', 'Hufflepuff', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(36, '4', 'Hufflepuff', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(37, '4', 'Hufflepuff', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(38, '4', 'Hufflepuff', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(39, '4', 'Hufflepuff', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+VALUES(40, '4', 'Hufflepuff', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
+ 
+SELECT * FROM DUAL;
+
+INSERT ALL  
+    INTO TBPESSOA 
+    VALUES(1, '924.530.162-10', 'JACCAN',1, '(98) 2815-4286','cozinheiro@hotmail.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(2, '787.084.794-10', 'JOSUE',1,'(99) 2724-2687', 'escritor@gmail.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(3, '689.672.301-76', 'JOAO',1,'(15) 3554-3232', 'contabilista@gmail.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(4, '854.209.143-44', 'JOANA',1,'(99) 3735-0737', 'insetologista@bol.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(5, '353.505.564-44', 'HERMIONE',1,'(95) 3466-5681', 'magasuprema@outlook.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(6, '844.333.551-35', 'HARRY POTTER',1, '(69) 3728-6327', 'cacique@hogwarts.com.br', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(7, '835.629.641-29', 'JACIRA',1,'(95) 3056-7341','leitora@outlook.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(8, '538.881.347-90', 'GULIVER',1,'(95) 3782-5475','aventureiro@terradegigantes.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(9, '292.196.500-37', 'JUSSARA',1,'(81) 3617-0529','cantora@hotmail.com', 'S', ' ') 
+    INTO TBPESSOA 
+    VALUES(10, '767.498.328-57', 'JOSEFA', 1,'(15) 2706-4887', 'medica@cidade.tk', 'S', ' ') 
+SELECT * FROM DUAL;
+
+INSERT ALL  
+    INTO TBPESSOA 
+    VALUES(11, '601.895.546-65', 'Inbuk',2, '(82) 2601-9557','cozinheiro@hotmail.com', 'S', 'IRMÃ') 
+    INTO TBPESSOA 
+    VALUES(12, '821.758.075-84', 'Labiurion',2,'(61) 2032-3487', 'escritor@gmail.com', 'S', 'IRMÃO') 
+    INTO TBPESSOA 
+    VALUES(13, '988.312.667-05', 'Herandir',2,'(48) 3794-4894', 'contabilista@gmail.com', 'S', 'TIO') 
+    INTO TBPESSOA 
+    VALUES(14, '505.874.385-09', 'Yatmaxa',2,'(54) 3349-5556', 'insetologista@bol.com', 'S', 'SOBRINHO') 
+    INTO TBPESSOA 
+    VALUES(15, '336.608.027-27', 'Kreinxo',2,'(61) 3500-1370', 'magasuprema@outlook.com', 'S', 'AMIGA') 
+    INTO TBPESSOA 
+    VALUES(16, '146.218.437-53', 'Veharz',2, '(87) 2186-7354', 'cacique@hogwarts.com.br', 'S', 'NAMORADA') 
+    INTO TBPESSOA 
+    VALUES(17, '906.012.682-37', 'Kezeukul',2,'(51) 3583-5788','leitora@outlook.com', 'S', 'PRIMA') 
+    INTO TBPESSOA 
+    VALUES(18, '514.465.614-53', 'Mogis',2,'(63) 2987-7767','aventureiro@terradegigantes.com', 'S', 'PRIMO') 
+    INTO TBPESSOA 
+    VALUES(19, '782.786.852-58', 'Cuoxaigramph',2,'(85) 2907-1362','cantora@hotmail.com', 'S', 'ENTEADO') 
+    INTO TBPESSOA 
+    VALUES(20, '786.725.494-30', 'Bugdpo', 2,'(88) 2253-4865', 'medica@cidade.tk', 'S', 'TIA') 
+     
+SELECT * FROM DUAL;
+
+INSERT ALL  
+    INTO TBPESSOA 
+    VALUES(21, '477.892.598-06', 'Zélia Grilo Loureiro Facre',3, '(27) 2712-6954','cozinheiro@hotmail.com', 'S', 'VETERINARIO') 
+    INTO TBPESSOA 
+    VALUES(22, '724.920.363-08', 'Gabriel Silveira Peçanha Barreto',3,'(95) 3153-6535', 'escritor@gmail.com', 'S', 'PEDREIRO') 
+    INTO TBPESSOA 
+    VALUES(23, '305.787.297-25', 'Edna Sodre Braga Bueno',3,'(32) 3317-3525', 'contabilista@gmail.com', 'S', 'INSTALADOR DE PLACA SOLAR') 
+    INTO TBPESSOA 
+    VALUES(24, '405.845.587-08', 'Gabrielle Augusto Navega Pinheiro',3,'(82) 2587-5271', 'insetologista@bol.com', 'S', 'REPARADOR') 
+    INTO TBPESSOA 
+    VALUES(25, '756.320.886-00', 'Rozangela de Souza Conceição Linhares',3,'(68) 3987-3418', 'magasuprema@outlook.com', 'S', 'ELETRICISTA') 
+    INTO TBPESSOA 
+    VALUES(26, '483.798.885-70', 'Carlos Henrique Vabo Leonicio Alfradique',3, '(61) 2574-4443', 'cacique@hogwarts.com.br', 'S', 'DIARISTA') 
+    INTO TBPESSOA 
+    VALUES(27, '869.159.262-16', 'Sergio Borges Santana Macário',3,'(61) 3748-2277','leitora@outlook.com', 'S', 'ONCOLOGISTA') 
+    INTO TBPESSOA 
+    VALUES(28, '822.351.158-45', 'Soraia Barbosa Vilela Vargas',3,'(77) 3516-2474','aventureiro@terradegigantes.com', 'S', 'PARTEIRO') 
+    INTO TBPESSOA 
+    VALUES(29, '244.436.575-50', 'Manuela Nogueira Pacheco Duarte',3,'(61) 3923-0479','cantora@hotmail.com', 'S', 'MEDICO') 
+    INTO TBPESSOA 
+    VALUES(30, '185.484.168-82', 'Jasmim Dutra Werneck Borralho', 3,'(69) 2159-0610', 'medica@cidade.tk', 'S', 'PROFESSOR') 
+     
+    INTO TBPESSOA 
+    VALUES(51, '886.725.494-30', 'Bugdp', 2,'(89) 9953-4865', 'autora@cidade.tk', 'N', 'Entrada negada por estar usando sapitlhas de cor purpura') 
+ 
+SELECT * FROM DUAL;
+
+INSERT ALL 
+INTO tbPessoa_has_Unidade 
+VALUES(1,1) 
+ 
+INTO tbPessoa_has_Unidade 
+VALUES(2,2) 
+INTO tbPessoa_has_Unidade 
+VALUES(3,3) 
+INTO tbPessoa_has_Unidade 
+VALUES(4,4) 
+INTO tbPessoa_has_Unidade 
+VALUES(5,5) 
+INTO tbPessoa_has_Unidade 
+VALUES(6,6) 
+ 
+INTO tbPessoa_has_Unidade 
+VALUES(7,7) 
+ 
+INTO tbPessoa_has_Unidade 
+VALUES(8,8) 
+ 
+INTO tbPessoa_has_Unidade 
+VALUES(9,9) 
+ 
+INTO tbPessoa_has_Unidade 
+VALUES(10,10) 
+ 
+SELECT * FROM DUAL;
+
+insert all 
+into tbacesso 
+values(1,1,1,to_date('2005/01/01 00:00:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 00:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(2,1,1,to_date('2005/01/01 10:00:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+ 
+into tbacesso 
+values(3,2,2,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+ 
+into tbacesso 
+values(4,3,3,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+ 
+into tbacesso 
+values(5,4,4,to_date('2005/01/01 10:01:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+ 
+into tbacesso 
+values(6,5,5,to_date('2005/01/01 10:03:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+ 
+into tbacesso 
+values(7,3,3,to_date('2005/01/01 10:04:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(8,3,3,to_date('2005/01/01 10:04:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(9,7,7,to_date('2005/01/01 10:14:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:30:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(10,8,8,to_date('2005/01/01 10:22:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(11,9,9,to_date('2005/01/01 10:23:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(12,10,10,to_date('2005/01/01 10:24:0', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+into tbacesso 
+values(13,4,4,to_date('2005/01/01 10:24:3', 'yyyy/mm/dd hh24:mi:ss'),to_date('2005/01/01 10:45:0', 'yyyy/mm/dd hh24:mi:ss')) 
+ 
+select * from dual;
+
+insert all 
+into tbacesso 
+values(14,1,1,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(15,1,1,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+ 
+into tbacesso 
+values(16,2,2,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+ 
+into tbacesso 
+values(17,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+ 
+into tbacesso 
+values(18,4,4,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+ 
+into tbacesso 
+values(19,5,5,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+ 
+into tbacesso 
+values(20,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(21,3,3,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(22,7,7,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(23,8,8,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(24,9,9,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(25,10,10,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+into tbacesso 
+values(26,10,10,to_char(sysdate-1/2),to_char(sysdate-13/24)) 
+ 
+select * from dual;
+--3
+--a este comando seleciona os moradores e suas moradias
+select  z.nome, c.numero, c.bloco, c.andar from 
+tbpessoa z inner join tbpessoa_has_unidade b on 
+z.idpessoa = b.idtbpessoa inner join tbunidade c on 
+c.idunidade = b.idtbunidade;
+--b este comando emite as entradas e saídas de moradores no prazo de 1 dia
+select  p.nome, count(a.idpessoa) as "Total de entradas" 
+from 
+tbpessoa p inner join tbacesso a on 
+a.idpessoa = p.idpessoa 
+where a.datahorachegada between to_date(sysdate- 1, 'dd/mm/yyyy hh:mi:ss')  and sysdate 
+group by p.nome 
+order by "Total de entradas";
+--c este comando mostra as pessoas que não tem relação com unidades do condominio, os trabalhadores e visitantes dos funcionarios
+select  z.nome, b.idtbunidade from 
+tbpessoa z left outer join tbpessoa_has_unidade b on 
+z.idpessoa = b.idtbpessoa
+where idtbunidade is null;
+--e este comando exibe apenas lotes sem acesso de pessoas, possiveis lotes a venda
+select idunidade from tbunidade 
+minus  
+select idtbunidade from tbpessoa_has_unidade;
+--4
+--a este comando exibe os lotes que tiveram alguma visita, seja de morador, funcionario ou visitante
+select * from tbunidade  
+where idunidade in (select idunidade from tbacesso);
+--d este comando nega o acesso de uma pessoa pelo id de acesso
+UPDATE tbpessoa 
+SET  observacao = 'Acesso negado para o condomínio, morador assaltou a geladeira do vizinho', liberacao = 'N' 
+WHERE  idpessoa in (select idpessoa from tbacesso where idacesso = 8);
+
+/*a. esta procedure faz o cadastro de novo morador ao condominio 
+* 
+*/ 
+create or replace procedure p_cadastro_morador(
+    v_IDPESSOA	TBPESSOA.idpessoa%type,
+    v_CPF tbpessoa.cpf%type,
+    v_NOME tbpessoa.nome%type,
+    v_TELEFONE	tbpessoa.telefone%type,
+    v_EMAIL	tbpessoa.email%type,
+    v_idunidade tbunidade.idunidade%type)
+as
+begin
+insert into tbpessoa values(v_IDPESSOA, v_CPF, v_NOME, 1, v_TELEFONE, v_EMAIL,'S', 'Novo morador');
+insert into tbpessoa_has_unidade(idtbpessoa, idtbunidade) values(v_IDPESSOA,v_idunidade); 
+end;
+/*
+*para executar a procedure utilize o modelo abaixo
+exec p_cadastro_morador(<idunico>, <cpf>, <nome>, <telefone>, <email>, <id_unidade>)
+*/
+/*b esta funcao retorna verdadeiro ou falso para os futuros cpf inseridos na tabela
+* devido o valor de retorno ser boolean ela deve ser testada em conjunto da trigger que verifica os inserts/ update na tabela pessoa  
+*sendo no contexto deste arquivo a resposta d
+*/
+CREATE OR REPLACE FUNCTION fc_valida_cpf (vcpf IN CHAR) 
+ 
+RETURN BOOLEAN 
+IS 
+total NUMBER := 0; 
+digito NUMBER := 0; 
+ 
+BEGIN 
+FOR i IN 1 .. 9 
+LOOP 
+    total := total + SUBSTR (vcpf, i, 1) * (11 - i); 
+END LOOP; 
+digito := 11 - MOD (total, 11); 
+IF digito > 9 THEN 
+    digito := 0; 
+ 
+END IF; 
+IF digito != SUBSTR (vcpf, 10, 1) THEN 
+    RETURN FALSE; 
+ 
+END IF; 
+digito := 0; 
+total := 0; 
+FOR i IN 1 .. 10 
+ 
+LOOP 
+    total := total + SUBSTR (vcpf, i, 1) * (12 - i); 
+ 
+END LOOP; 
+digito := 11 - MOD (total, 11); 
+IF digito > 9 THEN 
+    digito := 0; 
+ 
+END IF; 
+ 
+IF digito != SUBSTR (vcpf, 11, 1) THEN 
+    RETURN FALSE; 
+ 
+END IF; 
+RETURN TRUE; 
+END fc_valida_cpf; 
+ 
+/*c. Escreva um trigger de auditoria para criação e uso de logs sempre que 
+alguma operação crítica for realizada. Deverá usar :NEW e :OLD.*/ 
+ 
+ 
+ 
+/*d. Escreva um trigger para impor uma integridade de dados mais complexa do 
+que uma restrição Check(por exemplo).*/ 
+/*uma trigger para validação de cpfs, toda vez que um cpf for inserido ativara este gatilho que verificara se o cpf é veridico ou não*/ 
+ 
 
