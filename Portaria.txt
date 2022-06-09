@@ -20,7 +20,7 @@
     telefone varchar2(14), 
     email varchar2(34), 
     liberacao char(1), 
-    observacao varchar(50) 
+    observacao varchar(100) 
  );
 create table tbpessoa_has_unidade( 
     idtbpessoa number(3), 
@@ -267,6 +267,7 @@ INSERT ALL
     VALUES(19, '782.786.852-58', 'Cuoxaigramph',2,'(85) 2907-1362','cantora@hotmail.com', 'S', 'ENTEADO')
     INTO TBPESSOA
     VALUES(20, '786.725.494-30', 'Bugdpo', 2,'(88) 2253-4865', 'medica@cidade.tk', 'S', 'TIA')
+    
 SELECT * FROM DUAL;
  
 
@@ -292,6 +293,10 @@ INSERT ALL
     VALUES(29, '244.436.575-50', 'Manuela Nogueira Pacheco Duarte',3,'(61) 3923-0479','cantora@hotmail.com', 'S', 'MEDICO')
     INTO TBPESSOA
     VALUES(30, '185.484.168-82', 'Jasmim Dutra Werneck Borralho', 3,'(69) 2159-0610', 'medica@cidade.tk', 'S', 'PROFESSOR')
+    
+    INTO TBPESSOA
+    VALUES(51, '886.725.494-30', 'Bugdp', 2,'(89) 9953-4865', 'autora@cidade.tk', 'N', 'Entrada negada por estar usando sapitlhas de cor purpura')
+
 SELECT * FROM DUAL;
  
 
@@ -429,14 +434,14 @@ c.idunidade = b.idtbunidade;
 /*b Uma consulta que seja útil para a lógica de negócios usando totalização e
 uma função de data*/
 /*Obter o nome e a quantidade de entradas que determinada pessoa fez ao condominio dentro das ultimas 24 horas*/
-
-
-select  p.nome, count(a.idpessoa) as "Total de entradas" from
+select  p.nome, count(a.idpessoa) as "Total de entradas"
+from
 tbpessoa p inner join tbacesso a on
 a.idpessoa = p.idpessoa
-where a.datahorachegada between sysdate - 1 and sysdate
+where a.datahorachegada between to_date(sysdate- 1, 'dd/mm/yyyy hh:mi:ss')  and sysdate
 group by p.nome
 order by "Total de entradas";
+
 
 /*c. Uma consulta usando junção externa left join ou right join*/
 /*Selecionar todos as pessoas para saber quais tem alguma relação com alguma unidade*/
@@ -450,22 +455,33 @@ z.idpessoa = b.idtbpessoa;
 /*selecione apenas os apartamentos que não contenham registro de pessoas*/
 select idunidade from tbunidade
 minus 
-select idtbunidade from tbpessoa_has_unidade
+select idtbunidade from tbpessoa_has_unidade;
 
 /*f. Uma consulta usando o operador de intersecção*/
 
 
 /*4.*/
 /*a. exemplo de um comando utilizando subconsultas que utilize o operador in.*/
+/*Selecionar as unidades que tiveram alguma visita*/ 
+select * from tbunidade 
+where idunidade in (select idunidade from tbacesso);
 
 
 /*b. exemplo de um comando utilizando subconsultas que utilize o operador not exists*/
 
 
 /*c. exemplo de uma subconsulta utilizada dentro de um comando Update.*/
+/*negando acesso de uma pessoa ao condominio*/
+UPDATE tbpessoa
+SET  observacao = 'Acesso negado para o condomínio, morador não pagou a anuidade da netflix', liberacao = 'N'
+WHERE  idpessoa in (select idpessoa from tbacesso where idacesso = 8);
 
 
 /*d. exemplo de uma subconsulta utilizada dentro de um comando Delete.*/
+/*deletando unidades que nao tem moradores*/
+/*
+delete from tbunidade where idunidade not in (select idtbunidade from tbpessoa_has_unidade);
+*/
 
 /*******************Parte PL/SQL***********************************************/
 /*a. Escreva uma Stored Procedure que realize algum procedimento que seja útil
