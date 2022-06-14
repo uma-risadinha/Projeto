@@ -14,8 +14,8 @@
 
 --2
 --b
- create table tbUnidade(  
-    idunidade number(3),  
+ create table tbCASA(  
+    idcasa number(3),  
     numero varchar2(20),  
     bloco varchar2(20),  
     andar number(3.0),  
@@ -40,7 +40,7 @@
     observacao varchar(100)  
  );
 
-create table tbpessoa_has_unidade(  
+create table tbpessoa_has_casa(  
     idtbpessoa number(3),  
     idtbunidade number(3.0)  
 );
@@ -48,14 +48,14 @@ create table tbpessoa_has_unidade(
 create table tbacesso(  
     idacesso number(3),  
     idpessoa number(3),  
-    idunidade number(3.0),  
+    idcasa number(3.0),  
     datahorachegada date,  
     datahorasaida date  
  );
 
 --constraints apos a criação das tabelas
-ALTER TABLE tbunidade  
-ADD CONSTRAINT pk_unidade PRIMARY KEY (idunidade);
+ALTER TABLE tbcasa  
+ADD CONSTRAINT pk_casa PRIMARY KEY (idcasa);
 
 ALTER TABLE tbcategoria  
 ADD CONSTRAINT pk_categoria PRIMARY KEY (idcategoria);
@@ -63,15 +63,15 @@ ADD CONSTRAINT pk_categoria PRIMARY KEY (idcategoria);
 ALTER TABLE tbpessoa  
 ADD CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa);
 
-ALTER TABLE tbpessoa_has_unidade  
-ADD CONSTRAINT pk_pessoa_unidade PRIMARY KEY (idtbpessoa, idtbunidade);
+ALTER TABLE tbpessoa_has_casa  
+ADD CONSTRAINT pk_pessoa_casa PRIMARY KEY (idtbpessoa, idtbcasa);
 
-ALTER TABLE tbpessoa_has_unidade  
+ALTER TABLE tbpessoa_has_casa  
 ADD CONSTRAINT fk_pu_pessoa  
    FOREIGN KEY (idtbpessoa)  
    REFERENCES tbpessoa(idpessoa);
 
-ALTER TABLE tbpessoa_has_unidade  
+ALTER TABLE tbpessoa_has_casa  
 ADD CONSTRAINT fk_pu_pessoa_unidade  
    FOREIGN KEY (idtbunidade)  
    REFERENCES tbunidade (idunidade);
@@ -82,9 +82,14 @@ ADD CONSTRAINT fk_categoria
    REFERENCES tbcategoria (idcategoria);
 
 ALTER TABLE tbacesso  
-ADD CONSTRAINT fk_acesso_pessoa_unidade 
-  FOREIGN KEY (idpessoa, idunidade)  
-  REFERENCES tbpessoa_has_unidade(idtbpessoa, idtbunidade);
+ADD CONSTRAINT fk_acesso_casa 
+  FOREIGN KEY (idcasa)  
+  REFERENCES tbcasa(idcasa);
+  
+ALTER TABLE tbacesso  
+ADD CONSTRAINT fk_acesso_pessoa 
+  FOREIGN KEY (idpessoa)  
+  REFERENCES tbpessoa(idtbpessoa);
 
 ALTER TABLE TBPESSOA 
 ADD CONSTRAINT CK_PESSOA_LIBERACAO 
@@ -102,136 +107,136 @@ INSERT INTO TBCATEGORIA
 VALUES(3, 'FUNCIONARIO');
 
 INSERT ALL 
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(1, '1', 'GRYFFINDOR', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(2, '1', 'GRYFFINDOR', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(3, '1', 'GRYFFINDOR', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(4, '1', 'GRYFFINDOR', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(5, '1', 'GRYFFINDOR', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(6, '1', 'GRYFFINDOR', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(7, '1', 'GRYFFINDOR', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(8, '1', 'GRYFFINDOR', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(9, '1', 'GRYFFINDOR', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(10, '1', 'GRYFFINDOR', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE') 
  
 SELECT * FROM DUAL;
 
 INSERT ALL 
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(11, '2', 'Slytherin', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(12, '2', 'Slytherin', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(13, '2', 'Slytherin', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(14, '2', 'Slytherin', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(15, '2', 'Slytherin', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(16, '2', 'Slytherin', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(17, '2', 'Slytherin', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(18, '2', 'Slytherin', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(19, '2', 'Slytherin', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(20, '2', 'Slytherin', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE2') 
  
 SELECT * FROM DUAL;
 
 INSERT ALL 
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(21, '3', 'Ravenclaw', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(22, '3', 'Ravenclaw', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(23, '3', 'Ravenclaw', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(24, '3', 'Ravenclaw', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(25, '3', 'Ravenclaw', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(26, '3', 'Ravenclaw', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(27, '3', 'Ravenclaw', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(28, '3', 'Ravenclaw', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(29, '3', 'Ravenclaw', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(30, '3', 'Ravenclaw', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE3') 
  
 SELECT * FROM DUAL;
 
 INSERT ALL  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(31, '4', 'Hufflepuff', 1, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(32, '4', 'Hufflepuff', 2, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(33, '4', 'Hufflepuff', 3, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(34, '4', 'Hufflepuff', 4, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(35, '4', 'Hufflepuff', 5, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(36, '4', 'Hufflepuff', 6, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(37, '4', 'Hufflepuff', 7, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(38, '4', 'Hufflepuff', 8, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(39, '4', 'Hufflepuff', 9, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
-INTO TBUNIDADE (IDUNIDADE, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
+INTO TBcasa (IDcasa, NUMERO, BLOCO, ANDAR, QUADRA, RUA, OBSERVACAO) 
 VALUES(40, '4', 'Hufflepuff', 10, 'HARRY POTTER', 'BECO DIAGONAL', 'TESTE4') 
  
 SELECT * FROM DUAL;
@@ -311,30 +316,30 @@ INSERT ALL
 SELECT * FROM DUAL;
 
 INSERT ALL 
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa
 VALUES(1,1) 
  
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(2,2) 
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(3,3) 
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(4,4) 
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(5,5) 
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(6,6) 
  
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(7,7) 
  
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(8,8) 
  
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(9,9) 
  
-INTO tbPessoa_has_Unidade 
+INTO tbPessoa_has_casa 
 VALUES(10,10) 
  
 SELECT * FROM DUAL;
@@ -435,9 +440,9 @@ select * from dual;
 --3
 --a este comando seleciona os moradores e suas moradias
 select  z.nome, c.numero, c.bloco, c.andar from 
-tbpessoa z inner join tbpessoa_has_unidade b on 
-z.idpessoa = b.idtbpessoa inner join tbunidade c on 
-c.idunidade = b.idtbunidade;
+tbpessoa z inner join tbpessoa_has_casa b on 
+z.idpessoa = b.idtbpessoa inner join tbcasa c on 
+c.idcasa = b.idtbcasa;
 --b este comando emite as entradas e saídas de moradores no prazo de 1 dia
 select  p.nome, count(a.idpessoa) as "Total de entradas" 
 from 
@@ -447,18 +452,18 @@ where a.datahorachegada between to_date(sysdate- 1, 'dd/mm/yyyy hh:mi:ss')  and 
 group by p.nome 
 order by "Total de entradas";
 --c este comando mostra as pessoas que não tem relação com unidades do condominio, os trabalhadores e visitantes dos funcionarios
-select  z.nome, b.idtbunidade from 
-tbpessoa z left outer join tbpessoa_has_unidade b on 
+select  z.nome, b.idtbcasa from 
+tbpessoa z left outer join tbpessoa_has_casa b on 
 z.idpessoa = b.idtbpessoa
-where idtbunidade is null;
+where idtbcasa is null;
 --e este comando exibe apenas lotes sem acesso de pessoas, possiveis lotes a venda
-select idunidade from tbunidade 
+select idcasa from tbcasa 
 minus  
-select idtbunidade from tbpessoa_has_unidade;
+select idtbcasa from tbpessoa_has_casa;
 --4
 --a este comando exibe os lotes que tiveram alguma visita, seja de morador, funcionario ou visitante
-select * from tbunidade  
-where idunidade in (select idunidade from tbacesso);
+select * from tbcasa
+where idcasa in (select idcasa from tbacesso);
 --d este comando nega o acesso de uma pessoa pelo id de acesso
 UPDATE tbpessoa 
 SET  observacao = 'Acesso negado para o condomínio, morador assaltou a geladeira do vizinho', liberacao = 'N' 
@@ -532,10 +537,24 @@ END fc_valida_cpf;
 /*c. Escreva um trigger de auditoria para criação e uso de logs sempre que 
 alguma operação crítica for realizada. Deverá usar :NEW e :OLD.*/ 
  
- 
+
  
 /*d. Escreva um trigger para impor uma integridade de dados mais complexa do 
 que uma restrição Check(por exemplo).*/ 
-/*uma trigger para validação de cpfs, toda vez que um cpf for inserido ativara este gatilho que verificara se o cpf é veridico ou não*/ 
- 
+/*uma trigger para validação de cpfs, toda vez que um cpf for inserido ativara este gatilho que verificara se o cpf é veridico ou não*/
+create or replace trigger tg_verifica_cpf
+before insert or update of cpf on tbpessoa
+for each row
+declare
+verificador boolean;
+begin
+verificador := fc_valida_cpf(:new.cpf);
+if not verificador then
+raise_application_error(-20000, 'Cpf Invalido');
+end if;
+end;
 
+
+update tbpessoa 
+set cpf ='1'
+where cpf = '924.530.162-10'
